@@ -1,0 +1,11 @@
+﻿<Window x:Class="LifeGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{StaticResource ViewModel}">
+    <DockPanel>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="canvas" Stretch="Uniform"/>
+        </Border>
+    </DockPanel>
+</Window>
