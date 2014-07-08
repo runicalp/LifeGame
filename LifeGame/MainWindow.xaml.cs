@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -27,6 +29,21 @@ namespace LifeGame
                 wb.AddDirtyRect(new Int32Rect(0, 0, wb.PixelWidth, wb.PixelHeight));
                 wb.Unlock();
             };
+        }
+
+        private void PlayCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PauseCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void StopCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

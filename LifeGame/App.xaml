@@ -4,7 +4,7 @@
              xmlns:wpfApplication1="clr-namespace:LifeGame"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         <wpfApplication1:ViewModel x:Key="ViewModel" />
+        <wpfApplication1:ViewModel x:Key="ViewModel" />
 		<Style x:Key="PlayPauseButtonStyle" TargetType="{x:Type ToggleButton}">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -137,6 +137,14 @@
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Command" Value="Pause" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Command" Value="Play" />
+                </Trigger>
+            </Style.Triggers>
 		</Style>
 		<Style x:Key="StopButtonStyle" TargetType="{x:Type ToggleButton}">
 			<Setter Property="Template">
