@@ -20,7 +20,8 @@
 					<TranslateTransform/>
 				</TransformGroup>
 			</StackPanel.LayoutTransform>
-    		<ToggleButton Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64" />
+    		<ToggleButton Name="PlayPauseButton" Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64"
+                          IsChecked="{Binding IsPlay, Mode=OneWay}"/>
     		<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64" Margin="0"
                           Command="Stop"/>
     	</StackPanel>
