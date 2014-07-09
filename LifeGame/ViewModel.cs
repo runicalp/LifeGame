@@ -7,7 +7,7 @@ using LifeGame.Annotations;
 
 namespace LifeGame
 {
-    class ViewModel : INotifyPropertyChanged
+    sealed class ViewModel : INotifyPropertyChanged
     {
         private readonly DispatcherTimer dispatcherTimer;
         private bool isPlay;
@@ -96,7 +96,7 @@ namespace LifeGame
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));

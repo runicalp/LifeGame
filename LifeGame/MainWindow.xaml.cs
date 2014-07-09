@@ -15,7 +15,7 @@ namespace LifeGame
         {
             InitializeComponent();
             var wb = new WriteableBitmap(ViewModel.CellBoard.Width, ViewModel.CellBoard.Height, 96, 96, PixelFormats.Bgr32, null);
-            canvas.Source = wb;
+            Canvas.Source = wb;
             // RenderOptions.SetBitmapScalingMode(canvas, BitmapScalingMode.NearestNeighbor);
 
             CompositionTarget.Rendering += (sender, args) =>
@@ -28,7 +28,6 @@ namespace LifeGame
                 wb.AddDirtyRect(new Int32Rect(0, 0, wb.PixelWidth, wb.PixelHeight));
                 wb.Unlock();
             };
-            //PlayPauseButton.IsChecked = ViewModel.IsPlay;
         }
 
         ViewModel ViewModel { get { return (ViewModel)DataContext; } }

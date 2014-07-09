@@ -20,13 +20,13 @@
 					<TranslateTransform/>
 				</TransformGroup>
 			</StackPanel.LayoutTransform>
-    		<ToggleButton Name="PlayPauseButton" Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64"
+    		<ToggleButton Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64"
                           IsChecked="{Binding IsPlay, Mode=OneWay}"/>
     		<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64" Margin="0"
                           Command="Stop"/>
     	</StackPanel>
     	<Border BorderBrush="Black" BorderThickness="1" Margin="0" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">
-    		<Image x:Name="canvas" Stretch="Uniform"/>
+    		<Image x:Name="Canvas" Stretch="Uniform"/>
     	</Border>
     </DockPanel>
 </Window>
