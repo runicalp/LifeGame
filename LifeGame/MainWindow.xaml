@@ -34,6 +34,7 @@
 					</TransformGroup>
 				</ToggleButton.LayoutTransform>
 			</ToggleButton>
+			<CheckBox Content="アンチエイリアス" Margin="0" DockPanel.Dock="Right" IsChecked="{Binding AntiAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
 				
 			<DockPanel>
 				<Label DockPanel.Dock="Left" Content="Zoom:"/>
