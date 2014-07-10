@@ -25,16 +25,14 @@
 			<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64" Margin="0"
 				Command="Stop"/>
 		</StackPanel>
-		<ScrollViewer Margin="0" DockPanel.Dock="Top" CanContentScroll="True">
-			<Canvas ScrollViewer.CanContentScroll="True">
-				<Border BorderThickness="1" BorderBrush="Black">
-					<i:Interaction.Behaviors>
-						<local:MyMouseDragElementBehavior Canvas="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}"/>
-					</i:Interaction.Behaviors>
-					<Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-				</Border>
-			</Canvas>
-		</ScrollViewer>
+		<ScrollViewer Margin="0" DockPanel.Dock="Top" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <local:MouseScrollElementBehavior ScrollViewer="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"/>
+                </i:Interaction.Behaviors>
+                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+            </Border>
+        </ScrollViewer>
 		<!--<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<Image x:Name="Canvas" Stretch="Uniform"/>
 		</Border>-->
