@@ -58,6 +58,15 @@ namespace LifeGame
             }
             get { return RenderOptions.GetBitmapScalingMode(Canvas) != BitmapScalingMode.NearestNeighbor; }
         }
+
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1)
+            {
+                var p = e.GetPosition(Canvas);
+                ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)] = true;
+            }
+        }
     }
 
     public class MouseScrollElementBehavior : Behavior<FrameworkElement>
@@ -120,7 +129,7 @@ namespace LifeGame
             if (ScrollViewer == null) return;
 
             isDrag = true;
-            AssociatedObject.CaptureMouse();
+       //     AssociatedObject.CaptureMouse();
 
             mouseStartPosition = e.GetPosition(ScrollViewer);
 
