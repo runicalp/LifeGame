@@ -11,26 +11,50 @@
         <CommandBinding Command="Stop" Executed="StopCommand_OnExecuted" />
     </Window.CommandBindings>
 	<DockPanel>
-		<StackPanel Orientation="Horizontal" Margin="0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" VerticalAlignment="Center">
-			<StackPanel.LayoutTransform>
-				<TransformGroup>
-					<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
-					<SkewTransform/>
-					<RotateTransform/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</StackPanel.LayoutTransform>
+		<DockPanel Margin="0" DockPanel.Dock="Bottom">
 			<ToggleButton Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64"
-				IsChecked="{Binding IsPlay, Mode=OneWay}"/>
-			<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64" Margin="0"
-				Command="Stop"/>
-		</StackPanel>
+				IsChecked="{Binding IsPlay, Mode=OneWay}" Margin="0">
+				<ToggleButton.LayoutTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</ToggleButton.LayoutTransform>
+			</ToggleButton>
+			<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64"
+				Command="Stop" Margin="0">
+				<ToggleButton.LayoutTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</ToggleButton.LayoutTransform>
+			</ToggleButton>
+				
+			<DockPanel>
+				<Label DockPanel.Dock="Left" Content="Zoom:"/>
+				<Slider Margin="10,0,0,0" Maximum="5" Minimum="0.5" x:Name="ZoomSlider" Orientation="Horizontal" TickPlacement="BottomRight" Value="1" TickFrequency="0.5" />
+			</DockPanel>
+		</DockPanel>
 		<ScrollViewer Margin="0" DockPanel.Dock="Top" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <i:Interaction.Behaviors>
                     <local:MouseScrollElementBehavior ScrollViewer="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"/>
                 </i:Interaction.Behaviors>
-                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                	<Image.LayoutTransform>
+                		<TransformGroup>
+                			<ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}" ScaleY="{Binding Value, ElementName=ZoomSlider}"/>
+                			<SkewTransform/>
+                			<RotateTransform/>
+                			<TranslateTransform/>
+                		</TransformGroup>
+                	</Image.LayoutTransform>
+                </Image>
             </Border>
         </ScrollViewer>
 		<!--<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
