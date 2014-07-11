@@ -16,9 +16,9 @@ namespace LifeGame
         public MainWindow()
         {
             InitializeComponent();
+            AntiAlias = false;
             var wb = new WriteableBitmap(ViewModel.CellBoard.Width, ViewModel.CellBoard.Height, 96, 96, PixelFormats.Bgr32, null);
             Canvas.Source = wb;
-            // RenderOptions.SetBitmapScalingMode(canvas, BitmapScalingMode.NearestNeighbor);
 
             CompositionTarget.Rendering += (sender, args) =>
             {
@@ -47,6 +47,25 @@ namespace LifeGame
         private void StopCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             ViewModel.Stop();
+        }
+
+        public bool AntiAlias
+        {
+            set
+            {
+                RenderOptions.SetBitmapScalingMode(Canvas,
+                    value ? BitmapScalingMode.Linear : BitmapScalingMode.NearestNeighbor);
+            }
+            get { return RenderOptions.GetBitmapScalingMode(Canvas) != BitmapScalingMode.NearestNeighbor; }
+        }
+
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1)
+            {
+                var p = e.GetPosition(Canvas);
+                ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)] = !ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)];
+            }
         }
     }
 
@@ -108,6 +127,7 @@ namespace LifeGame
         void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (ScrollViewer == null) return;
+            if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) == 0) return;
 
             isDrag = true;
             AssociatedObject.CaptureMouse();

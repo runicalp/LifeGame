@@ -34,6 +34,7 @@
 					</TransformGroup>
 				</ToggleButton.LayoutTransform>
 			</ToggleButton>
+			<CheckBox Content="アンチエイリアス" Margin="0" DockPanel.Dock="Right" IsChecked="{Binding AntiAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
 				
 			<DockPanel>
 				<Label DockPanel.Dock="Left" Content="Zoom:"/>
@@ -45,7 +46,7 @@
                 <i:Interaction.Behaviors>
                     <local:MouseScrollElementBehavior ScrollViewer="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"/>
                 </i:Interaction.Behaviors>
-                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}" MouseLeftButtonUp="Canvas_MouseLeftButtonUp">
                 	<Image.LayoutTransform>
                 		<TransformGroup>
                 			<ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}" ScaleY="{Binding Value, ElementName=ZoomSlider}"/>
