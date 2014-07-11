@@ -127,9 +127,10 @@ namespace LifeGame
         void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (ScrollViewer == null) return;
+            if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) == 0) return;
 
             isDrag = true;
-       //     AssociatedObject.CaptureMouse();
+            AssociatedObject.CaptureMouse();
 
             mouseStartPosition = e.GetPosition(ScrollViewer);
 
