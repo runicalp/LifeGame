@@ -64,7 +64,7 @@ namespace LifeGame
             if (e.ClickCount == 1)
             {
                 var p = e.GetPosition(Canvas);
-                ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)] = true;
+                ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)] = !ViewModel.CellBoard[(int)Math.Floor(p.X), (int)Math.Floor(p.Y)];
             }
         }
     }
