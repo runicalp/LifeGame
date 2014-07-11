@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:local="clr-namespace:LifeGame" x:Class="LifeGame.MainWindow"
         Title="MainWindow" Height="350" Width="525"
-        DataContext="{StaticResource ViewModel}"
+        DataContext="{StaticResource ViewModel}" Loaded="Window_Loaded"
         >
     <Window.CommandBindings>
         <CommandBinding Command="Play" Executed="PlayCommand_OnExecuted" />
@@ -34,7 +34,22 @@
 					</TransformGroup>
 				</ToggleButton.LayoutTransform>
 			</ToggleButton>
-			<CheckBox Content="アンチエイリアス" Margin="0" DockPanel.Dock="Right" IsChecked="{Binding AntiAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+			<CheckBox Content="Antialas" Margin="0" DockPanel.Dock="Right" IsChecked="{Binding AntiAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+			<Grid DockPanel.Dock="Right">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" MinWidth="17"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Label Content="ステップ:" FontSize="9.333"/>
+				<Label Content="人口:" FontSize="9.333" Grid.Row="1"/>
+				<Label Content="{Binding Step, Mode=OneWay}" Grid.Column="1"/>
+				<Label Content="{Binding Population, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
+				
+			</Grid>
 				
 			<DockPanel>
 				<Label DockPanel.Dock="Left" Content="Zoom:"/>

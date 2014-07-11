@@ -1,13 +1,39 @@
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using LifeGame.Annotations;
 
 namespace LifeGame
 {
-    class CellBoard
+    sealed class CellBoard : INotifyPropertyChanged
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
         private byte[] bufferSecondary;
+        private int step;
+        private int population;
         public byte[] Cells { get; private set; }
+
+        public int Step
+        {
+            get { return step; }
+            set
+            {
+                step = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Population
+        {
+            get { return population; }
+            set
+            {
+                population = value;
+                OnPropertyChanged();
+            }
+        }
 
         private static int[] d;
 
@@ -54,6 +80,14 @@ namespace LifeGame
             });
 
             Swap();
+
+            Step++;
+            CalcuratePopulation();
+        }
+
+        internal void CalcuratePopulation()
+        {
+            Population = Cells.AsParallel().Sum(_ => _);
         }
 
         private void Swap()
@@ -103,6 +137,15 @@ namespace LifeGame
                     }
                 }
             });
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

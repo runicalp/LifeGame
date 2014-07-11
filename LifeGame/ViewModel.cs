@@ -19,12 +19,18 @@ namespace LifeGame
 
             dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal) { Interval = new TimeSpan(0, 0, 0, 0, 10) };
             dispatcherTimer.Tick += (sender1, e) => Update();
-            Play();
         }
 
         private void Initialize()
         {
+            if (CellBoard != null)
+            {
+                CellBoard.PropertyChanged -= CellBoardOnPropertyChanged;
+            }
+
             CellBoard = new CellBoard(640, 640);
+            CellBoard.PropertyChanged += CellBoardOnPropertyChanged;
+
             const string patern = @"
 Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
 Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†
@@ -57,6 +63,17 @@ namespace LifeGame
             {
                 CellBoard[c.x, c.y] = c.visible;
             }
+
+            CellBoard.Step = 0;
+            CellBoard.CalcuratePopulation();
+        }
+
+        private void CellBoardOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == "Step")
+                OnPropertyChanged("Step");
+            if (propertyChangedEventArgs.PropertyName == "Population")
+                OnPropertyChanged("Population");
         }
 
         private void Update()
@@ -92,6 +109,10 @@ namespace LifeGame
             Pause();
             Initialize();
         }
+
+        public int Step { get { return CellBoard.Step; } }
+
+        public int Population { get { return CellBoard.Population; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
