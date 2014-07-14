@@ -1,11 +1,80 @@
-﻿<Window x:Class="LifeGame.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:local="clr-namespace:LifeGame" x:Class="LifeGame.MainWindow"
         Title="MainWindow" Height="350" Width="525"
-        DataContext="{StaticResource ViewModel}">
-    <DockPanel>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Name="canvas" Stretch="Uniform"/>
-        </Border>
-    </DockPanel>
+        DataContext="{StaticResource ViewModel}" Loaded="Window_Loaded"
+        >
+    <Window.CommandBindings>
+        <CommandBinding Command="Play" Executed="PlayCommand_OnExecuted" />
+        <CommandBinding Command="Pause" Executed="PauseCommand_OnExecuted" />
+        <CommandBinding Command="Stop" Executed="StopCommand_OnExecuted" />
+    </Window.CommandBindings>
+	<DockPanel>
+		<DockPanel Margin="0" DockPanel.Dock="Bottom">
+			<ToggleButton Content="PlayPause" HorizontalAlignment="Left" Height="64" Style="{DynamicResource PlayPauseButtonStyle}" VerticalAlignment="Top" Width="64"
+				IsChecked="{Binding IsPlay, Mode=OneWay}" Margin="0">
+				<ToggleButton.LayoutTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</ToggleButton.LayoutTransform>
+			</ToggleButton>
+			<ToggleButton Content="Stop" HorizontalAlignment="Left" Style="{DynamicResource StopButtonStyle}" VerticalAlignment="Top" Width="64" Height="64"
+				Command="Stop" Margin="0">
+				<ToggleButton.LayoutTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</ToggleButton.LayoutTransform>
+			</ToggleButton>
+			<CheckBox Content="Antialas" Margin="0" DockPanel.Dock="Right" IsChecked="{Binding AntiAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+			<Grid DockPanel.Dock="Right">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" MinWidth="17"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Label Content="ステップ:" FontSize="9.333"/>
+				<Label Content="人口:" FontSize="9.333" Grid.Row="1"/>
+				<Label Content="{Binding Step, Mode=OneWay}" Grid.Column="1"/>
+				<Label Content="{Binding Population, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
+				
+			</Grid>
+				
+			<DockPanel>
+				<Label DockPanel.Dock="Left" Content="Zoom:"/>
+				<Slider Margin="10,0,0,0" Maximum="5" Minimum="0.5" x:Name="ZoomSlider" Orientation="Horizontal" TickPlacement="BottomRight" Value="1" TickFrequency="0.5" />
+			</DockPanel>
+		</DockPanel>
+		<ScrollViewer Margin="0" DockPanel.Dock="Top" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <local:MouseScrollElementBehavior ScrollViewer="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"/>
+                </i:Interaction.Behaviors>
+                <Image x:Name="Canvas" Width="{Binding Source.Width, Mode=OneWay, RelativeSource={RelativeSource Self}}" Height="{Binding Source.Height, Mode=OneWay, RelativeSource={RelativeSource Self}}" MouseLeftButtonUp="Canvas_MouseLeftButtonUp">
+                	<Image.LayoutTransform>
+                		<TransformGroup>
+                			<ScaleTransform ScaleX="{Binding Value, ElementName=ZoomSlider}" ScaleY="{Binding Value, ElementName=ZoomSlider}"/>
+                			<SkewTransform/>
+                			<RotateTransform/>
+                			<TranslateTransform/>
+                		</TransformGroup>
+                	</Image.LayoutTransform>
+                </Image>
+            </Border>
+        </ScrollViewer>
+		<!--<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Image x:Name="Canvas" Stretch="Uniform"/>
+		</Border>-->
+	</DockPanel>
 </Window>
